@@ -13,7 +13,9 @@ func main() {
 	//mainForTypesAndStructs()
 	//mainForStructWithFunctions()
 	//mainForMapAndSlices()
-	mainForDecisionOperators()
+//	mainForDecisionOperators()
+	//mainForLooping()
+	mainForInterface()
 }
 
 // Variables and Functions
@@ -147,6 +149,71 @@ func mainForDecisionOperators() {
 //Looping
 
 func mainForLooping(){
+for i:=0; i<=10 ; i++{
+	fmt.Println(i)
+}
 
-	
+names := []string{"first", "second", "last", "middle"} //example 3
+
+for i,name := range names{
+	fmt.Println(i,name)
+}
+
+for _,name := range names{
+	fmt.Println(name)
+}
+
+myMap := make((map[string]string))
+myMap["MyName"] = "Manish"
+myMap["YourName"] = "Nisha"
+for key,value := range myMap{
+	fmt.Println(key,value)
+}
+
+lines:="This is my first line"
+for i,l:=range lines{
+	fmt.Println(i,l)
+}
+
+}
+
+//interfaces
+
+type Employee interface{
+Department() string;
+Skills() string;
+}
+
+type Worker struct{
+	Name string
+	salary int
+	}
+
+	func (w *Worker) Department() string{
+		return "Library"
+	}
+	func (w *Worker) Skills() string{
+		return "Unknown"
+	}
+	type Labour struct{
+		Name string
+		wages int
+		}
+		func (w *Labour) Department() string{
+			return "Garden"
+		}
+		func (w *Labour) Skills() string{
+			return "digging"
+		}
+
+func mainForInterface(){
+worker:=Worker{Name: "Doug",salary: 100}
+
+PrintInfo(&worker)
+labour:=Labour{Name: "Ram",wages: 10}
+PrintInfo(&labour)
+}
+
+func PrintInfo(e Employee){
+	fmt.Println(e.Department(),e.Skills())
 }

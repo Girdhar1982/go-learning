@@ -12,6 +12,7 @@ func main() {
 //mainForPointer()
 //mainForTypesAndStructs()
 //mainForStructWithFunctions()
+mainForMapAndSlices()
 }
 
 // Variables and Functions
@@ -93,5 +94,27 @@ myVar.FirstName="Manish"
 log.Println(myVar.printFirstName() )
 }
 
-
 //maps and slices
+func mainForMapAndSlices(){
+	//must use make function to make new map
+ myMap:=make((map[string]string))
+ myMap["MyName"]="Manish"
+ myMap["YourName"]="Nisha"
+ log.Println(myMap["MyName"]," and ",myMap["YourName"])
+ userMap:=make(map[string]User)
+ userMap["First"]=User{FirstName: "Manish",LastName: "Girdhar"}
+ log.Println(userMap["First"])
+ userMap["Second"]=User{FirstName: "Nisha",LastName: "Girdhar"}
+ log.Println(userMap["Second"])
+ log.Println(userMap);
+//slices == Array
+var firstNames []string; //example one
+firstNames=append(firstNames,"Mehul" )
+firstNames=append(firstNames,"Javin" )
+log.Println(firstNames);
+numbers:= [] int {1,2,3,4,5,6,7,8,9,10} //example 2
+log.Println(numbers[0:5]);
+
+name:=[]string {"first","second","last","middle"} //example 3
+log.Println(name)
+	}

@@ -10,7 +10,8 @@ import (
 func main() {
 //fmt.Println(varibaleAndFunctions()) ; value1,value2:=functionreturnTwo(); fmt.Println(value1,value2)
 //mainForPointer()
-mainForTypesAndStructs()
+//mainForTypesAndStructs()
+//mainForStructWithFunctions()
 }
 
 // Variables and Functions
@@ -55,7 +56,6 @@ Age int
 BirthDate time.Time
 }
 
-
 func mainForTypesAndStructs(){
 s2:="six"
 log.Println("global s variable",s)
@@ -75,3 +75,23 @@ func changeValue(s string)(string, string){
 log.Println("s is input of this function ",s )
 return "s is changed ?? ", s
 }
+
+//Functions in Struct
+
+type myStruct struct{
+FirstName string
+}
+
+// m is receiver here will tie the function to struct
+func (m *myStruct) printFirstName() string{
+return m.FirstName;
+}
+
+func mainForStructWithFunctions(){
+var myVar myStruct;
+myVar.FirstName="Manish"
+log.Println(myVar.printFirstName() )
+}
+
+
+//maps and slices

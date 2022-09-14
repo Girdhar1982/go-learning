@@ -2,8 +2,8 @@ package main
 
 import (
 	"fmt"
-	"log"
 	"github.com/girdhar1982/go-learning/helpers"
+	"log"
 )
 
 // each file must have main
@@ -13,9 +13,10 @@ func main() {
 	//mainForTypesAndStructs()
 	//mainForStructWithFunctions()
 	//mainForMapAndSlices()
-//	mainForDecisionOperators()
+	//	mainForDecisionOperators()
 	//mainForLooping()
-	mainForInterface()
+	//mainForInterface()
+	mainForChannels()
 }
 
 // Variables and Functions
@@ -52,8 +53,6 @@ func changeUsingPointer(s *string) { //s is pointer of string
 
 // Types and Structs
 var s = "seven" // this variable will be available Globally in this file
-
-
 
 func mainForTypesAndStructs() {
 	s2 := "six"
@@ -142,72 +141,89 @@ func mainForDecisionOperators() {
 
 //Looping
 
-func mainForLooping(){
-for i:=0; i<=10 ; i++{
-	fmt.Println(i)
-}
+func mainForLooping() {
+	for i := 0; i <= 10; i++ {
+		fmt.Println(i)
+	}
 
-names := []string{"first", "second", "last", "middle"} //example 3
+	names := []string{"first", "second", "last", "middle"} //example 3
 
-for i,name := range names{
-	fmt.Println(i,name)
-}
+	for i, name := range names {
+		fmt.Println(i, name)
+	}
 
-for _,name := range names{
-	fmt.Println(name)
-}
+	for _, name := range names {
+		fmt.Println(name)
+	}
 
-myMap := make((map[string]string))
-myMap["MyName"] = "Manish"
-myMap["YourName"] = "Nisha"
-for key,value := range myMap{
-	fmt.Println(key,value)
-}
+	myMap := make((map[string]string))
+	myMap["MyName"] = "Manish"
+	myMap["YourName"] = "Nisha"
+	for key, value := range myMap {
+		fmt.Println(key, value)
+	}
 
-lines:="This is my first line"
-for i,l:=range lines{
-	fmt.Println(i,l)
-}
+	lines := "This is my first line"
+	for i, l := range lines {
+		fmt.Println(i, l)
+	}
 
 }
 
 //interfaces
 
-type Employee interface{
-Department() string;
-Skills() string;
+type Employee interface {
+	Department() string
+	Skills() string
 }
 
-type Worker struct{
-	Name string
+type Worker struct {
+	Name   string
 	salary int
-	}
-
-	func (w *Worker) Department() string{
-		return "Library"
-	}
-	func (w *Worker) Skills() string{
-		return "Unknown"
-	}
-	type Labour struct{
-		Name string
-		wages int
-		}
-		func (w *Labour) Department() string{
-			return "Garden"
-		}
-		func (w *Labour) Skills() string{
-			return "digging"
-		}
-
-func mainForInterface(){
-worker:=Worker{Name: "Doug",salary: 100}
-
-PrintInfo(&worker)
-labour:=Labour{Name: "Ram",wages: 10}
-PrintInfo(&labour)
 }
 
-func PrintInfo(e Employee){
-	fmt.Println(e.Department(),e.Skills())
+func (w *Worker) Department() string {
+	return "Library"
+}
+func (w *Worker) Skills() string {
+	return "Unknown"
+}
+
+type Labour struct {
+	Name  string
+	wages int
+}
+
+func (w *Labour) Department() string {
+	return "Garden"
+}
+func (w *Labour) Skills() string {
+	return "digging"
+}
+
+func mainForInterface() {
+	worker := Worker{Name: "Doug", salary: 100}
+
+	PrintInfo(&worker)
+	labour := Labour{Name: "Ram", wages: 10}
+	PrintInfo(&labour)
+}
+
+func PrintInfo(e Employee) {
+	fmt.Println(e.Department(), e.Skills())
+}
+
+// Channels
+func CalculateValue(intChan chan int) {
+	const numPool = 100
+	randomNumber := helpers.RandomNumber(numPool)
+	intChan <- randomNumber
+}
+func mainForChannels() {
+	intChan := make(chan int)
+	defer close(intChan) //what ever comes after defer execute when current function is done (Channel is needed to be closed)
+
+	go CalculateValue(intChan) //Go routine take Channel and run it
+	num := <-intChan //assign to num whatever comes from int channel
+	log.Println(num)
 }

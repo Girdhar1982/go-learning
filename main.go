@@ -3,7 +3,7 @@ package main
 import (
 	"fmt"
 	"log"
-	"time"
+	"github.com/girdhar1982/go-learning/helpers"
 )
 
 // each file must have main
@@ -53,13 +53,7 @@ func changeUsingPointer(s *string) { //s is pointer of string
 // Types and Structs
 var s = "seven" // this variable will be available Globally in this file
 
-type User struct { //Capital U defines that it is public and will be visible outside the package
-	FirstName string
-	LastName  string
-	Phone     string
-	Age       int
-	BirthDate time.Time
-}
+
 
 func mainForTypesAndStructs() {
 	s2 := "six"
@@ -68,7 +62,7 @@ func mainForTypesAndStructs() {
 	first, second := changeValue("XXXX")
 	log.Println("global s variable", s, first, second)
 
-	user := User{
+	user := helpers.User{
 		FirstName: "Manish",
 		LastName:  "Girdhar",
 	}
@@ -104,10 +98,10 @@ func mainForMapAndSlices() {
 	myMap["MyName"] = "Manish"
 	myMap["YourName"] = "Nisha"
 	log.Println(myMap["MyName"], " and ", myMap["YourName"])
-	userMap := make(map[string]User)
-	userMap["First"] = User{FirstName: "Manish", LastName: "Girdhar"}
+	userMap := make(map[string]helpers.User)
+	userMap["First"] = helpers.User{FirstName: "Manish", LastName: "Girdhar"}
 	log.Println(userMap["First"])
-	userMap["Second"] = User{FirstName: "Nisha", LastName: "Girdhar"}
+	userMap["Second"] = helpers.User{FirstName: "Nisha", LastName: "Girdhar"}
 	log.Println(userMap["Second"])
 	log.Println(userMap)
 	//slices == Array

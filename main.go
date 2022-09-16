@@ -2,9 +2,11 @@ package main
 
 import (
 	"encoding/json"
+	"errors"
 	"fmt"
-	"github.com/girdhar1982/go-learning/helpers"
 	"log"
+
+	"github.com/girdhar1982/go-learning/helpers"
 )
 
 // each file must have main
@@ -18,7 +20,8 @@ func main() {
 	//mainForLooping()
 	//mainForInterface()
 	//mainForChannels()
-	mainForJsonReadWrite()
+	//mainForJsonReadWrite()
+	mainForTests()
 }
 
 // Variables and Functions
@@ -28,7 +31,7 @@ func varibaleAndFunctions() string {
 	i = 42
 	who := "Everyone"
 	whatToSay = "Thank you .."
-	return (whatToSay + who + " I am " + string(i) + " Years Old")
+	return (whatToSay + who + " I am " + fmt.Sprint(i) + " Years Old")
 }
 func functionreturnTwo() (string, string) {
 	var whatToSay string
@@ -47,7 +50,8 @@ func mainForPointer() {
 	log.Println("myString is now Set to,", myString)
 }
 
-func changeUsingPointer(s *string) { //s is pointer of string
+func changeUsingPointer(s *string) { 
+	//s is pointer of string
 	log.Println("Address of String ,", s)
 	newValue := "Red"
 	*s = newValue
@@ -284,4 +288,24 @@ if err != nil {
 }
 
 fmt.Println(string(newJson))  //String to convert slice of byte to String
+}
+
+//Creating Tests in Go
+
+func mainForTests() {
+	result, err := divide(100, 0)
+	if err != nil {
+		log.Println(err)
+		return
+	}
+	log.Println("result of division is", result)
+}
+
+func divide(x, y float32) (float32, error) {
+	var result float32
+	if y == 0 {
+		return result, errors.New("cannot divide by 0")
+	}
+	result = x / y
+	return result, nil
 }

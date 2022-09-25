@@ -10,8 +10,9 @@ const portNumber = ":8080"
 
 // each file must have main
 func main() {
-fmt.Println("Starting Application on Port: ",portNumber)
+
 	http.HandleFunc("/", handlers.Home)
 	http.HandleFunc("/about", handlers.About)
-	http.ListenAndServe(portNumber, nil)
+	fmt.Println("Starting Application on Port: ",portNumber)
+	_ = http.ListenAndServe(portNumber, nil)
 }

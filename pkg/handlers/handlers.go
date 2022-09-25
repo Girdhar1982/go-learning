@@ -1,5 +1,4 @@
 package handlers
-
 import (
 	"net/http"
 	"github.com/girdhar1982/go-learning/pkg/render"

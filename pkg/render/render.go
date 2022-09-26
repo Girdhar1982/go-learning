@@ -8,17 +8,22 @@ import (
 	"net/http"
 	"path/filepath"
 	"github.com/girdhar1982/go-learning/config"
-	"github.com/girdhar1982/go-learning/pkg/handlers"
+	"github.com/girdhar1982/go-learning/pkg/models"
 )
 var app *config.AppConfig
 //NewTemplates sets the config for the template package
 func NewTemplates(a *config.AppConfig){
 app=a
 }
+
+func AddDefaultData(td *models.TemplateData) *models.TemplateData {
+	return td
+}
+
 // render template
-func RenderTemplates(w http.ResponseWriter, tmpl string,td *handlers.TemplateData) {
+func RenderTemplates(w http.ResponseWriter, tmpl string,td *models.TemplateData) {
 	var tc  map[string] *template.Template
-	//get the template cach from the app config
+	//get the template cache from the app config
 	if app.UseCache {
 	tc = app.TemplateCache;
 }else{
@@ -31,7 +36,9 @@ func RenderTemplates(w http.ResponseWriter, tmpl string,td *handlers.TemplateDat
 	}
 
 	buf := new(bytes.Buffer); //additional errro checking optional
-	err := t.Execute(buf,nil)
+
+	td = AddDefaultData(td)
+	err := t.Execute(buf,td)
 	if err != nil {
 		log.Println(err)
 	}
